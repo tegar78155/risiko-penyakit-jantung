@@ -35,7 +35,7 @@ VALIDATION_RULES = {
 
 
 def create_app():
-    app = Flask(__name__, static_folder=str(BASE_DIR / "public"), static_url_path="/static")
+    app = Flask(__name__, static_folder=str(BASE_DIR / "public"), static_url_path="")
     app.secret_key = "heart-disease-academic-prototype"
 
     try:
@@ -117,6 +117,7 @@ def create_app():
         return jsonify({"status": "ok", "model_loaded": model is not None})
 
     @app.route("/evaluasi")
+    @app.route("/evaluation")
     def evaluation():
         return render_template("evaluation.html", metadata=metadata, startup_error=startup_error)
 
