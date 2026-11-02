@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env
+.DS_Store
+" filePath">
+D:\Unduhan\Prediksi Risiko Penyakit Jantung Berdasarkan Kondisi Kesehatan\.gitignore

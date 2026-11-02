@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+  <h2>Dashboard Evaluasi Model</h2>
+  {% if startup_error %}
+    <div class="alert alert-error" role="alert">Model belum dapat dimuat: {{ startup_error }}</div>
+  {% endif %}
+  {% if metadata %}
+  <div class="grid-3">
+    <div class="card"><div class="stat">{{ metadata.n_samples }}</div><p class="muted">Sampel</p></div>
+    <div class="card"><div class="stat">{{ metadata.n_features }}</div><p class="muted">Fitur</p></div>
+    <div class="card"><div class="stat">{{ metadata.train_size }}/{{ metadata.test_size }}</div><p class="muted">Train/Test</p></div>
+  </div>
+  <div class="grid-2 section">
+    <div>
+      <h3>Metrik</h3>
+      <div class="result-metric"><span>Accuracy</span><strong>{{ "%.4f"|format(metadata.metrics.accuracy) }}</strong></div>
+      <div class="result-metric"><span>Precision</span><strong>{{ "%.4f"|format(metadata.metrics.precision) }}</strong></div>
+      <div class="result-metric"><span>Recall</span><strong>{{ "%.4f"|format(metadata.metrics.recall) }}</strong></div>
+      <div class="result-metric"><span>F1-Score</span><strong>{{ "%.4f"|format(metadata.metrics.f1_score) }}</strong></div>
+      <div class="result-metric"><span>ROC-AUC</span><strong>{{ "%.4f"|format(metadata.metrics.roc_auc) }}</strong></div>
+      <div class="result-metric"><span>CV Accuracy</span><strong>{{ "%.4f"|format(metadata.cross_validation.mean) }} ± {{ "%.4f"|format(metadata.cross_validation.std) }}</strong></div>
+    </div>
+    <div>
+      <h3>Informasi Model</h3>
+      <p class="muted">Logistic Regression dengan pipeline preprocessing: imputasi, scaling, dan one-hot encoding.</p>
+      <p class="muted">Hyperparameter: C={{ metadata.tuned_hyperparameters["model__C"] }}, solver={{ metadata.tuned_hyperparameters["model__solver"] }}.</p>
+    </div>
+  </div>
+  <div class="chart-grid grid-2">
+    <img src="{{ url_for('static', filename='reports/confusion_matrix.png') }}" alt="Confusion Matrix">
+    <img src="{{ url_for('static', filename='reports/roc_curve.png') }}" alt="ROC Curve">
+    <img src="{{ url_for('static', filename='reports/target_distribution.png') }}" alt="Distribusi target">
+  </div>
+  {% endif %}
+  <p class="warning">Hasil evaluasi hanya menggambarkan performa pada pembagian data ini; aplikasi bukan alat diagnosis.</p>
+</section>
+{% endblock %}

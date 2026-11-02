@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prediksi Indikasi Penyakit Jantung</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <a class="brand" href="{{ url_for('index') }}">Heart Disease Prediction</a>
+      <nav aria-label="Navigasi utama">
+        <a href="{{ url_for('index') }}">Beranda</a>
+        <a href="{{ url_for('predict') }}">Prediksi</a>
+        <a href="{{ url_for('evaluation') }}">Evaluasi</a>
+        <a href="{{ url_for('about') }}">Tentang Model</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    {% if startup_error %}
+      <div class="alert alert-error" role="alert">Model belum dapat dimuat: {{ startup_error }}</div>
+    {% endif %}
+    <div class="layout">
+      <aside class="sidebar" aria-label="Sidebar">
+        <a href="{{ url_for('index') }}">Dashboard</a>
+        <a href="{{ url_for('predict') }}">Prediksi</a>
+        <a href="{{ url_for('evaluation') }}">Evaluasi</a>
+        <a href="{{ url_for('about') }}">Tentang Model</a>
+      </aside>
+      <section>
+        {% block content %}{% endblock %}
+      </section>
+    </div>
+  </main>
+  <footer class="footer">
+    Prototipe akademik Logistic Regression. Bukan alat diagnosis medis.
+  </footer>
+</body>
+</html>

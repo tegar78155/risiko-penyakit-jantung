@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+  <h2>Tentang Model</h2>
+  <p>Model menggunakan Logistic Regression dari Scikit-learn dengan pipeline preprocessing yang mencakup imputasi, scaling, dan one-hot encoding.</p>
+  <p>Dataset: processed.cleveland.data, 303 sampel, 13 fitur, target biner dari num &gt; 0.</p>
+  {% if metadata %}
+  <div class="grid-2">
+    <div class="card">
+      <h3>Ukuran Data</h3>
+      <div class="result-metric"><span>Train</span><strong>{{ metadata.train_size }}</strong></div>
+      <div class="result-metric"><span>Test</span><strong>{{ metadata.test_size }}</strong></div>
+      <div class="result-metric"><span>Dilatih pada</span><strong>{{ metadata.trained_at }}</strong></div>
+    </div>
+    <div class="card">
+      <h3>Metrik</h3>
+      <div class="result-metric"><span>Accuracy</span><strong>{{ "%.4f"|format(metadata.metrics.accuracy) }}</strong></div>
+      <div class="result-metric"><span>Precision</span><strong>{{ "%.4f"|format(metadata.metrics.precision) }}</strong></div>
+      <div class="result-metric"><span>Recall</span><strong>{{ "%.4f"|format(metadata.metrics.recall) }}</strong></div>
+      <div class="result-metric"><span>F1-Score</span><strong>{{ "%.4f"|format(metadata.metrics.f1_score) }}</strong></div>
+      <div class="result-metric"><span>ROC-AUC</span><strong>{{ "%.4f"|format(metadata.metrics.roc_auc) }}</strong></div>
+    </div>
+  </div>
+  {% endif %}
+  <p class="warning">Aplikasi ini bukan alat diagnosis medis.</p>
+</section>
+{% endblock %}
